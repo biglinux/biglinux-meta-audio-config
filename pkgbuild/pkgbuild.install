@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# The old package shipped /etc/systemd/system/big-audio-config.service. Disable
+# it before the upgrade removes the unit file, so no dangling symlink is left in
+# multi-user.target.wants.
+
+pre_upgrade() {
+    if [ -e /etc/systemd/system/multi-user.target.wants/big-audio-config.service ]; then
+        systemctl disable big-audio-config.service >/dev/null 2>&1 || \
+            rm -f /etc/systemd/system/multi-user.target.wants/big-audio-config.service
+    fi
+}
+
+post_upgrade() {
+    systemctl daemon-reload >/dev/null 2>&1 || true
+}

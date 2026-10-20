@@ -1,0 +1,22 @@
+# Maintainer: Bruno Gonçalves <bigbruno@gmail.com>
+# Maintainer: Tales A. Mendonça <talesam@gmail.com>
+
+# Transitional empty package. The old biglinux-meta-audio-config (1.0.1, 2022)
+# installed audio realtime limits, udev rules and a boot service that forced
+# vm.swappiness=10 over the current memory tuning. Upgrading to this version
+# removes those files; the package can then be uninstalled.
+pkgname=biglinux-meta-audio-config
+pkgdesc="Empty transitional package: the old BigLinux audio settings were removed (safe to uninstall)"
+pkgver=$(date +%y.%m.%d)
+pkgrel=$(date +%H%M)
+arch=('any')
+license=('GPL-3.0-or-later')
+url="https://github.com/biglinux/${pkgname}"
+source=("git+${url}.git")
+sha256sums=('SKIP')
+install=pkgbuild.install
+
+package() {
+    # Nothing to install: being empty is what removes the old files.
+    :
+}
